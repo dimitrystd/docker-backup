@@ -11,4 +11,4 @@ RUN chmod +x /usr/local/bin/backup
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
 
-CMD [/sbin/entrypoint.sh]
+CMD ["/sbin/entrypoint.sh"]
