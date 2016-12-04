@@ -1,6 +1,6 @@
-FROM alpine:latest
+FROM python:alpine
 
-RUN apk add --update-cache python py-pip ca-certificates tzdata \
+RUN apk add --update-cache tzdata \
     && pip install awscli \
     && rm -fR /etc/periodic \
     && rm -rf /var/cache/apk/*
