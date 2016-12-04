@@ -18,6 +18,7 @@ backup_archive=${BACKUP_DEST_FOLDER}/${BACKUP_PREFIX}.${backup_time}.tar.gz
 # copy all filtes we want to backup to src
 eval $(echo find ${BACKUP_FIND_OPTIONS}) > "${backup_src}"
 # time to create an archive
+echo "`date +%Y-%m-%d_%H:%M:%S` Create temporary archive ${backup_archive}"
 tar -cvz \
     -f "${backup_archive}" \
     -T "${backup_src}"
@@ -25,9 +26,11 @@ tar -cvz \
 rm "${backup_src}"
 # upload to amazon s3
 if [[ ${BACKUP_AWS_S3_PATH} ]]; then
+    echo "`date +%Y-%m-%d_%H:%M:%S` Upload archive ${backup_archive} to ${BACKUP_AWS_S3_PATH}"
     aws s3 cp "${backup_archive}" "${BACKUP_AWS_S3_PATH}"
 fi
 # remove backup file
 if ${BACKUP_DELETE_LOCAL_COPY}; then
+    echo "`date +%Y-%m-%d_%H:%M:%S` Delete temporary archive ${backup_archive}"
     rm "${backup_archive}"
 fi
